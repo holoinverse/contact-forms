@@ -84,8 +84,6 @@ font-size:15px;
 <button type="button" id="btn-pt" onclick="setLanguage('pt')">Português</button>
 </div>
 
-<h2 id="title"></h2>
-
 <div id="content"></div>
 
 </div>
@@ -93,7 +91,7 @@ font-size:15px;
 <script>
 const about = {
 en: {
-title: "About HoloInverse",
+title: "",
 content: `
 <p>HoloInverse is an independent artistic universe dedicated to the creation of symbolic art and visual systems, expressed through physical and wearable forms.</p>
 
@@ -110,7 +108,7 @@ content: `
 },
 
 pt: {
-title: "Sobre o HoloInverse",
+title: "",
 content: `
 <p>O HoloInverse é um universo artístico independente dedicado à criação de arte simbólica e sistemas visuais, expressos por meio de objetos físicos, peças vestíveis e coleções visuais.</p>
 
@@ -128,7 +126,6 @@ content: `
 };
 
 function setLanguage(lang){
-document.getElementById("title").innerText = about[lang].title;
 document.getElementById("content").innerHTML = about[lang].content;
 
 document.getElementById("btn-en").classList.toggle("active", lang === "en");
