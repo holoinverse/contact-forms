@@ -3,16 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Contact | HoloInverse</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 font-family:Arial, Helvetica, sans-serif;
@@ -24,7 +18,30 @@ padding:10px 16px;
 .container{
 max-width:620px;
 margin:auto;
-padding:10px 28px 34px 28px;
+padding:10px 28px 34px;
+}
+
+.lang-switch{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-bottom:28px;
+}
+
+.lang-switch button{
+width:auto;
+padding:10px 18px;
+border:1px solid #111;
+border-radius:999px;
+background:white;
+color:#111;
+font-size:14px;
+cursor:pointer;
+}
+
+.lang-switch button.active{
+background:#111;
+color:white;
 }
 
 .intro{
@@ -42,8 +59,7 @@ font-weight:600;
 font-size:15px;
 }
 
-input,
-textarea{
+input, textarea, select{
 width:100%;
 padding:14px 15px;
 border:1px solid #d9d9d9;
@@ -58,7 +74,7 @@ min-height:140px;
 resize:vertical;
 }
 
-button{
+.submit-btn{
 width:100%;
 padding:15px;
 border:none;
@@ -70,22 +86,12 @@ color:#fff;
 font-weight:700;
 }
 
-button:hover{
-opacity:.92;
-}
+.submit-btn:hover{opacity:.92;}
 
 @media(max-width:480px){
-
-body{
-padding:8px 12px;
+body{padding:8px 12px;}
+.container{padding:0;}
 }
-
-.container{
-padding:0;
-}
-
-}
-
 </style>
 </head>
 
@@ -93,41 +99,84 @@ padding:0;
 
 <div class="container">
 
-<div class="intro">
-
-Questions, collaborations,<br>
-or general inquiries related to HoloInverse?
-
-<br><br>
-
-Feel free to send a message below.
-
-<br><br>
-
-We will get back to you as soon as possible.
-
+<div class="lang-switch">
+<button type="button" id="btn-en" class="active" onclick="setLanguage('en')">English</button>
+<button type="button" id="btn-pt" onclick="setLanguage('pt')">Português</button>
 </div>
+
+<div class="intro" id="intro"></div>
+
 <form action="https://formspree.io/f/xpqerzvk" method="POST">
 
-<label>Name</label>
+<label id="label-name">Name</label>
 <input type="text" name="name" required>
 
-<label>Email</label>
+<label id="label-email">Email</label>
 <input type="email" name="email" required>
 
-<label>Subject</label>
+<label id="label-language">Preferred Language</label>
+<select name="preferred_language" id="preferred_language">
+<option value="English">English</option>
+<option value="Português">Português</option>
+</select>
+
+<label id="label-subject">Subject</label>
 <input type="text" name="subject">
 
-<label>Message</label>
+<label id="label-message">Message</label>
 <textarea name="message" required></textarea>
 
-<button type="submit">
-Send Message
-</button>
+<button class="submit-btn" type="submit" id="submit-btn">Send Message</button>
 
 </form>
 
 </div>
+
+<script>
+const content = {
+en: {
+intro: `Questions, collaborations,<br>
+custom requests or general inquiries related to HoloInverse?<br><br>
+Feel free to send a message below.<br><br>
+We will get back to you as soon as possible.`,
+name: "Name",
+email: "Email",
+language: "Preferred Language",
+subject: "Subject",
+message: "Message",
+submit: "Send Message"
+},
+pt: {
+intro: `Dúvidas, colaborações,<br>
+pedidos personalizados ou assuntos relacionados à HoloInverse?<br><br>
+Envie sua mensagem abaixo.<br><br>
+Retornaremos o mais breve possível.`,
+name: "Nome",
+email: "E-mail",
+language: "Idioma preferido",
+subject: "Assunto",
+message: "Mensagem",
+submit: "Enviar mensagem"
+}
+};
+
+function setLanguage(lang){
+document.getElementById("intro").innerHTML = content[lang].intro;
+document.getElementById("label-name").innerText = content[lang].name;
+document.getElementById("label-email").innerText = content[lang].email;
+document.getElementById("label-language").innerText = content[lang].language;
+document.getElementById("label-subject").innerText = content[lang].subject;
+document.getElementById("label-message").innerText = content[lang].message;
+document.getElementById("submit-btn").innerText = content[lang].submit;
+
+document.getElementById("btn-en").classList.toggle("active", lang === "en");
+document.getElementById("btn-pt").classList.toggle("active", lang === "pt");
+
+document.getElementById("preferred_language").value = lang === "en" ? "English" : "Português";
+}
+
+setLanguage("en");
+</script>
 
 </body>
 </html>
